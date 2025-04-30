@@ -1,12 +1,12 @@
-import { useFetchAllProducts } from '@/application/services/product.service';
-import { useAppSelector } from '@/application/state/hooks';
 import { Link } from 'react-router-dom';
-import AppLayout from '../components/layout/AppLayout';
-import { SkeletonLoader } from '../components/common/Loader';
-import ProductCard from '../components/product/ProductCard';
-import { Heading } from '../components/common/TextInputs';
-import Button from '../components/common/Button';
+import AppLayout from '../../components/layout/AppLayout';
+import { SkeletonLoader } from '../../components/common/Loader';
+import ProductCard from '../../components/product/ProductCard';
+import { Heading } from '../../components/common/TextInputs';
+import Button from '../../components/common/Button';
 import { capitalizeString } from '@/infrastructure/lib/string.helper';
+import { useFetchAllProducts } from '@/core/application/hooks/product.hooks';
+import { useAppSelector } from '@/core/application/state/hooks';
 
 const Home = () => {
   const { productsList } = useAppSelector((state) => state.product);
@@ -50,7 +50,7 @@ const Home = () => {
               <Link
                 key={category}
                 to={`/products?category=${category}`}
-                className="bg-accent rounded-md p-3 px-4 flex flex-col items-center justify-center text-center hover:bg-accent/80 transition-colors"
+                className="bg-accent rounded-md p-3 hover:bg-accent/80 hover:scale-105 transition-all duration-300 px-4 flex flex-col items-center justify-center text-center"
               >
                 {capitalizeString(category)}
               </Link>

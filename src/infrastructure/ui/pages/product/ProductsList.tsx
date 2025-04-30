@@ -1,15 +1,15 @@
-import { useFetchAllProducts } from '@/application/services/product.service';
-import { useAppSelector } from '@/application/state/hooks';
 import { useEffect, useMemo, useState } from 'react';
-import Input from '../components/common/Input';
-import AppLayout from '../components/layout/AppLayout';
-import Combobox from '../components/common/Combobox';
-import ProductCard from '../components/product/ProductCard';
-import { SkeletonLoader } from '../components/common/Loader';
+import Input from '../../components/common/Input';
+import AppLayout from '../../components/layout/AppLayout';
+import Combobox from '../../components/common/Combobox';
+import ProductCard from '../../components/product/ProductCard';
+import { SkeletonLoader } from '../../components/common/Loader';
 import { capitalizeString } from '@/infrastructure/lib/string.helper';
 import { useSearchParams } from 'react-router-dom';
 import { faFileLines, faHome } from '@fortawesome/free-solid-svg-icons';
-import CustomBreadcrumb from '../components/common/CustomBreadcrumb';
+import CustomBreadcrumb from '../../components/common/CustomBreadcrumb';
+import { useFetchAllProducts } from '@/core/application/hooks/product.hooks';
+import { useAppSelector } from '@/core/application/state/hooks';
 
 const Products = () => {
   /**
@@ -69,9 +69,16 @@ const Products = () => {
     }
 
     if (searchParams?.get('category')) {
-      setCategory(searchParams?.get('category') || '');
+      // CHECK IF CATEGORY EXISTS IN CATEGORIES
+      if (categories?.includes(searchParams?.get('category') || '')) {
+        setCategory(searchParams?.get('category') || '');
+      } else {
+        searchParams.delete('category');
+        setSearchParams(searchParams);
+        setCategory(categories?.[0]);
+      }
     }
-  }, [categories, category, searchParams]);
+  }, [categories, category, searchParams, setSearchParams]);
 
   return (
     <AppLayout>

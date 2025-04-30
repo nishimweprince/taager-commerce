@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import Home from '../ui/pages/Home';
-import ProductsList from '../ui/pages/ProductsList';
-import NotFound from '../ui/pages/NotFound';
-import ProductDetails from '../ui/pages/ProductDetails';
+import Home from '../ui/pages/home/Home';
+import ProductsList from '../ui/pages/product/ProductsList';
+import NotFound from '../ui/pages/non-functional/NotFound';
+import ProductDetails from '../ui/pages/product/ProductDetails';
 
 const Router = () => {
   return (

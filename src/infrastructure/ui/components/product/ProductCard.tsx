@@ -1,4 +1,4 @@
-import { Product } from '@/domain/entities/product.entity';
+import { Product } from '@/core/domain/entities/product.entity';
 import Card from '../common/Card';
 import { Link } from 'react-router-dom';
 import { capitalizeString } from '@/infrastructure/lib/string.helper';

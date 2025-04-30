@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '../state/hooks';
 import { setProduct, setProductsList } from '../state/slices/productSlice';
-import { useLazyFetchAllProductsQuery, useLazyGetProductByIdQuery } from '../../adapters/api/apiQuerySlice';
-import { toApiProduct } from '../../adapters/api/mappers/productMapper';
+import { useLazyFetchAllProductsQuery, useLazyGetProductByIdQuery } from '@/adapters/api/apiQuerySlice';
+import { toApiProduct } from '@/adapters/api/mappers/productMapper';
 
 // FETCH ALL PRODUCTS
 export const useFetchAllProducts = () => {

@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { apiQuerySlice } from '../../adapters/api/apiQuerySlice';
 import productSlice from './slices/productSlice';
 import cartSlice from './slices/cartSlice';
-
+import { apiQuerySlice } from '../../../adapters/api/apiQuerySlice';
 export const store = configureStore({
   reducer: {
     [apiQuerySlice.reducerPath]: apiQuerySlice.reducer,

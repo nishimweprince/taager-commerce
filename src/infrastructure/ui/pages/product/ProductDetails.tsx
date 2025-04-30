@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AppLayout from '../components/layout/AppLayout';
-import Button from '../components/common/Button';
-import Loader, { SkeletonLoader } from '../components/common/Loader';
+import AppLayout from '../../components/layout/AppLayout';
+import Button from '../../components/common/Button';
+import Loader, { SkeletonLoader } from '../../components/common/Loader';
 import { ShoppingCart, Truck, Shield, Heart } from 'lucide-react';
-import ProductRating from '../components/product/ProductRating';
-import { useGetProductById } from '@/application/services/product.service';
-import { useAppSelector } from '@/application/state/hooks';
-import CustomBreadcrumb from '../components/common/CustomBreadcrumb';
+import ProductRating from '../../components/product/ProductRating';
+import CustomBreadcrumb from '../../components/common/CustomBreadcrumb';
 import { faBox, faFileLines, faHome } from '@fortawesome/free-solid-svg-icons';
-import ProductReview from '../components/product/ProductReview';
-import { QuantitySelector } from '../components/product/ProductQuantity';
+import ProductReview from '../../components/product/ProductReview';
+import { QuantitySelector } from '../../components/product/ProductQuantity';
+import { useAppSelector } from '@/core/application/state/hooks';
+import { useGetProductById } from '@/core/application/hooks/product.hooks';
+import { capitalizeString } from '@/infrastructure/lib/string.helper';
 
 const ProductDetails = () => {
   const { product } = useAppSelector((state) => state.product);
@@ -55,12 +56,10 @@ const ProductDetails = () => {
     setTimeout(() => setReviewsIsFetching(false), 1500);
   }, []);
 
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // Loading state
   if (productIsFetching) {
     return (
       <AppLayout>
@@ -80,7 +79,6 @@ const ProductDetails = () => {
     );
   }
 
-  // Product not found state
   if (!product) {
     return (
       <AppLayout>
@@ -105,11 +103,11 @@ const ProductDetails = () => {
         </header>
 
         <article className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          {/* Product Image */}
+          {/* PRODUCT IMAGE */}
           <figure className="aspect-square bg-white border rounded-lg overflow-hidden flex items-center justify-center p-4">
             <img
-              src={product.image}
-              alt={product.title}
+              src={product?.image}
+              alt={product?.title}
               className="max-h-full max-w-full object-contain"
             />
           </figure>
@@ -117,9 +115,9 @@ const ProductDetails = () => {
           <section className="flex flex-col gap-4">
             {/* PRODUCT HEADER */}
             <header>
-              <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-              <p className="text-muted-foreground">
-                Category: {product.category}
+              <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
+              <p className="text-muted-foreground text-sm">
+                Category: {capitalizeString(product?.category)}
               </p>
             </header>
 
@@ -142,10 +140,14 @@ const ProductDetails = () => {
             </section>
 
             {/* DESCRIPTION */}
-            <p className="text-muted-foreground">{product.description}</p>
+            <p className="text-muted-foreground">{product?.description}</p>
 
             {/* QUANTITY SELECTOR */}
-            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            <QuantitySelector
+              quantity={quantity}
+              setQuantity={setQuantity}
+              maxQuantity={quantity}
+            />
 
             {/* ACTION BUTTONS */}
             <section className="flex flex-col sm:flex-row gap-4">
