@@ -5,3 +5,7 @@ export interface User extends BaseEntity {
   email: string;
   password: string;
 }
+
+export interface Auth {
+  token: string;
+}

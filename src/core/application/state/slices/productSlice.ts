@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Product } from '../../../core/domain/entities/product.entity';
-import { ApiProduct } from '../../../adapters/api/mappers/productMapper';
+import { Product } from '@/core/domain/entities/product.entity';
+import { ApiProduct } from '@/adapters/api/mappers/productMapper';
 
 interface ProductState {
   productsList: Product[] & ApiProduct[];

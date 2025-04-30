@@ -13,6 +13,7 @@ A modern, responsive e-commerce platform built with React, Redux, and TypeScript
 - [Development](#development)
 - [Deployment](#deployment)
 - [API Integration](#api-integration)
+- [Authentication](#authentication)
 - [State Management](#state-management)
 - [Core Entities](#core-entities)
 - [Repository Pattern](#repository-pattern)
@@ -97,6 +98,7 @@ e-commerce/
 - **Product Details**: View detailed product information
 - **Shopping Cart**: Add, remove, and update items
 - **Category Filtering**: Filter products by category
+- **User Authentication**: Login/logout functionality
 - **Responsive Design**: Works on mobile, tablet, and desktop
 - **Clean UI**: Modern and intuitive user interface
 - **Type Safety**: Full TypeScript implementation
@@ -174,6 +176,25 @@ The application uses the Fake Store API (https://fakestoreapi.com) for product d
 1. API endpoints defined in `src/adapters/api/endpoints.ts`
 2. API client implementations in `src/adapters/api/apiQuerySlice.ts`
 3. Data transformations in `src/adapters/api/mappers/`
+
+## Authentication
+
+The application uses JWT-based authentication provided by the Fake Store API:
+
+- **Login Endpoint**: `https://fakestoreapi.com/auth/login`
+- **Auth Flow**: Username/password authentication with JWT token response
+- **Token Storage**: Secure storage in browser localStorage
+
+### Test Credentials
+
+For testing purposes, you can use the following credentials:
+
+```
+Username: johnd
+Password: m38rmF$
+```
+
+These credentials are provided by the Fake Store API and will return a valid JWT token.
 
 ## State Management
 

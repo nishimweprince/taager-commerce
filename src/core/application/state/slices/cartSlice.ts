@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cart } from '../../../core/domain/entities/cart.entity';
+import { Cart } from '@/core/domain/entities/cart.entity';
 
 interface CartState {
   itemsList: Cart[];
