@@ -8,7 +8,7 @@ import { capitalizeString } from '@/presentation/utils/string.helper';
 import { useSearchParams } from 'react-router-dom';
 import { faFileLines, faHome } from '@fortawesome/free-solid-svg-icons';
 import CustomBreadcrumb from '../../components/common/CustomBreadcrumb';
-import { useFetchAllProducts } from '@/core/application/hooks/product.hooks';
+import { useFetchAllProducts } from '@/core/application/products/product.hooks';
 import { useAppSelector } from '@/core/application/state/hooks';
 
 const Products = () => {
@@ -16,7 +16,7 @@ const Products = () => {
    * STATE VARIABLES
    */
   const { productsList } = useAppSelector((state) => state.product);
-  const { productsIsFetching } = useFetchAllProducts();
+  const { productsIsFetching, fetchAllProducts } = useFetchAllProducts();
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('');
 
@@ -79,6 +79,10 @@ const Products = () => {
       }
     }
   }, [categories, category, searchParams, setSearchParams]);
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
 
   return (
     <AppLayout>

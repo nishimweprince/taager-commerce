@@ -9,13 +9,33 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   isLoading?: boolean;
+  primary?: boolean;
+  danger?: boolean;
 }
 
-const Button = ({ children, className, to, type, onClick, isLoading }: ButtonProps) => {
+const Button = ({
+  children,
+  className,
+  to,
+  type,
+  onClick,
+  isLoading,
+  primary,
+  danger,
+}: ButtonProps) => {
   if (type && ['submit', 'reset'].includes(type)) {
     return (
-      <button type={type} className={`${className}`}>
-        {isLoading ? <Loader className='text-primary' /> : children}
+      <button
+        type={type}
+        className={`${
+          primary
+            ? '!bg-primary text-white'
+            : danger
+            ? '!bg-red-700 text-white'
+            : 'bg-white text-primary'
+        } inline-flex items-center justify-center cursor-pointer px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 transition-colors duration-200 ${className}`}
+      >
+        {isLoading ? <Loader className="text-white" /> : children}
       </button>
     );
   }
@@ -24,9 +44,15 @@ const Button = ({ children, className, to, type, onClick, isLoading }: ButtonPro
     <Link
       to={to || ''}
       onClick={onClick}
-      className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 transition-colors duration-200 ${className}`}
+      className={`${
+        primary
+          ? '!bg-primary text-white'
+          : danger
+          ? '!bg-red-700 text-white'
+          : 'bg-white text-primary'
+      } inline-flex items-center justify-center cursor-pointer px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 transition-colors duration-200 ${className}`}
     >
-      {isLoading ? <Loader className='text-primary' /> : children}
+      {isLoading ? <Loader className="text-white" /> : children}
     </Link>
   );
 };

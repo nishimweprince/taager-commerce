@@ -4,13 +4,19 @@ import { SkeletonLoader } from '../../components/inputs/Loader';
 import ProductCard from '../../components/product/ProductCard';
 import Button from '../../components/inputs/Button';
 import { capitalizeString } from '@/presentation/utils/string.helper';
-import { useFetchAllProducts } from '@/core/application/hooks/product.hooks';
+import { useFetchAllProducts } from '@/core/application/products/product.hooks';
 import { useAppSelector } from '@/core/application/state/hooks';
 import { Heading } from '../../components/inputs/TextInputs';
+import { useEffect } from 'react';
 
 const Home = () => {
   const { productsList } = useAppSelector((state) => state.product);
-  const { productsIsFetching } = useFetchAllProducts();
+  const { productsIsFetching, productsIsSuccess, fetchAllProducts } =
+    useFetchAllProducts();
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
 
   return (
     <AppLayout>
@@ -33,12 +39,41 @@ const Home = () => {
               <SkeletonLoader key={index} type="card" />
             ))}
           </menu>
-        ) : (
+        ) : productsIsSuccess && productsList?.length > 0 ? (
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {productsList?.slice(0, 8).map((product) => (
               <ProductCard key={product?.id} product={product} />
             ))}
           </ul>
+        ) : (
+          <section className="flex flex-col items-center justify-center gap-4 py-8">
+            <p className="text-muted-foreground text-lg">No products found</p>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                fetchAllProducts();
+              }}
+              className="flex items-center gap-2"
+            >
+              <span>Try Again</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 2v6h-6" />
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                <path d="M3 22v-6h6" />
+                <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+              </svg>
+            </Button>
+          </section>
         )}
       </section>
 

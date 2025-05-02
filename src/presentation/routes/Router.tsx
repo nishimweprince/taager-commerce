@@ -7,6 +7,7 @@ import UserProfile from '../ui/pages/user/UserProfile';
 import AuthenticatedRoutes from '../outlets/AuthenticatedRoutes';
 import Login from '../ui/pages/auth/Login';
 import Signup from '../ui/pages/auth/Signup';
+import ManageProducts from '../ui/pages/dashboard/ManageProducts';
 
 const Router = () => {
   return (
@@ -20,7 +21,7 @@ const Router = () => {
         <Route path="" element={<ProductsList />} />
         <Route path=":id" element={<ProductDetails />} />
       </Route>
-      
+
       {/**
        * AUTH ROUTES
        */}
@@ -28,12 +29,15 @@ const Router = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Signup />} />
       </Route>
-      
+
       {/**
        * AUTHENTICATED ROUTES
        */}
       <Route element={<AuthenticatedRoutes />}>
-        <Route path="/account" element={<UserProfile />} />
+        <Route path="/dashboard">
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="products" element={<ManageProducts />} />
+        </Route>
       </Route>
 
       {/**
@@ -41,7 +45,7 @@ const Router = () => {
        */}
       <Route path="*" element={<NotFound />} />
     </Routes>
-  )
-}
+  );
+};
 
 export default Router;

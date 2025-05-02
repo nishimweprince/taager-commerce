@@ -21,8 +21,8 @@ export const toProduct = (apiProduct: ApiProduct): Product => ({
   category: apiProduct.category,
   image: apiProduct.image,
   rating: {
-    rate: apiProduct.rating.rate,
-    count: apiProduct.rating.count,
+    rate: apiProduct?.rating?.rate || 0,
+    count: apiProduct?.rating?.count || 0,
   },
 });
 
@@ -34,7 +34,7 @@ export const toApiProduct = (product: Product): ApiProduct => ({
   category: product.category,
   image: product.image,
   rating: {
-    rate: product.rating.rate,
-    count: product.rating.count,
+    rate: product?.rating?.rate || 0,
+    count: product?.rating?.count || 0,
   },
 });

@@ -15,7 +15,7 @@ export const capitalizeString = (
     string?.includes('true') ||
     string?.includes('false')
   )
-    return string; // Avoid capitalizing email addresses and boolean values
+    return string;
   const words = string?.toLowerCase()?.split('_');
   const capitalizedWords =
     words && words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
@@ -31,3 +31,15 @@ function capitalizeCamelCase(string: string) {
     })
     .trim();
 }
+
+// FORMAT CURRENCY
+export const formatCurrency = (
+  amount: number | string | undefined,
+  currency: string = 'USD'
+) => {
+  if (!amount) return '';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).format(Number(amount));
+};

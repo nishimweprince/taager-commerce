@@ -6,7 +6,7 @@ export interface Product extends BaseEntity {
   category: string;
   image: string;
   price: number;
-  rating: {
+  rating?: {
     rate: number;
     count: number;
   };

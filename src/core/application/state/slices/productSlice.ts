@@ -6,12 +6,18 @@ interface ProductState {
   productsList: Product[] & ApiProduct[];
   product?: Product & ApiProduct;
   selectedProduct?: Product & ApiProduct;
+  deleteProductModal: boolean;
+  createProductModal: boolean;
+  updateProductModal: boolean;
 }
 
 const initialState: ProductState = {
   productsList: [] as Product[] & ApiProduct[],
   product: undefined,
   selectedProduct: undefined,
+  deleteProductModal: false,
+  createProductModal: false,
+  updateProductModal: false,
 }
 
 const productSlice = createSlice({
@@ -28,14 +34,27 @@ const productSlice = createSlice({
       state.selectedProduct = action.payload;
     },
     addToProductsList: (state, action) => {
-      state.productsList.push(action.payload);
+      state.productsList.unshift(action.payload);
     },
     removeFromProductsList: (state, action) => {
       state.productsList = state.productsList.filter(
         (product) => product.id !== action.payload
       ) as Product[] & ApiProduct[];
     },
-    
+    setDeleteProductModal: (state, action) => {
+      state.deleteProductModal = action.payload;
+    },
+    setCreateProductModal: (state, action) => {
+      state.createProductModal = action.payload;
+    },
+    setUpdateProductModal: (state, action) => {
+      state.updateProductModal = action.payload;
+    },
+    setUpdateProduct: (state, action) => {
+      state.productsList = state.productsList.map((product) =>
+        product.id === action.payload.id ? action.payload : product
+      );
+    },
   },
 });
 
@@ -45,6 +64,10 @@ export const {
   setSelectedProduct,
   addToProductsList,
   removeFromProductsList,
+  setDeleteProductModal,
+  setCreateProductModal,
+  setUpdateProductModal,
+  setUpdateProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;

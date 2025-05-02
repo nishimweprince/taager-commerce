@@ -1,10 +1,10 @@
-import AppLayout from "../../components/layout/AppLayout";
+import DashboardLayout from "../../components/layout/DashboardLayout";
 
 const UserProfile = () => {
   return (
-    <AppLayout>
+    <DashboardLayout>
       <div>UserProfile</div>
-    </AppLayout>
+    </DashboardLayout>
   )
 }
 

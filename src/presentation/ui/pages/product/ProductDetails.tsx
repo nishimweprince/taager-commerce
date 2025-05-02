@@ -10,7 +10,7 @@ import { faBox, faFileLines, faHome } from '@fortawesome/free-solid-svg-icons';
 import ProductReview from '../../components/product/ProductReview';
 import { QuantitySelector } from '../../components/product/ProductQuantity';
 import { useAppSelector } from '@/core/application/state/hooks';
-import { useGetProductById } from '@/core/application/hooks/product.hooks';
+import { useGetProductById } from '@/core/application/products/product.hooks';
 import { capitalizeString } from '@/presentation/utils/string.helper';
 
 const ProductDetails = () => {
@@ -87,7 +87,12 @@ const ProductDetails = () => {
           <p className="mb-6">
             We couldn't find the product you're looking for.
           </p>
-          <Button onClick={() => navigate('/products')}>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/products');
+            }}
+          >
             Back to Products
           </Button>
         </section>
@@ -203,6 +208,16 @@ const ProductDetails = () => {
             )}
           </Button>
         </section>
+        <menu className="w-full flex items-center gap-3 justify-between">
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
+          >
+            Back
+          </Button>
+        </menu>
       </main>
     </AppLayout>
   );

@@ -37,7 +37,7 @@ const Navbar = () => {
   });
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky h-[9vh] top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <section className="container mx-auto px-4">
         <section className="flex h-16 items-center justify-between">
           <figure className="flex items-center">
@@ -46,7 +46,7 @@ const Navbar = () => {
             </Link>
           </figure>
 
-          {!pathname.includes(`auth`) && (
+          {!['auth', 'dashboard'].some((path) => pathname.includes(path)) && (
             <search className="hidden md:flex relative w-4/7 mx-4">
               <form onSubmit={onSubmit} className="w-full">
                 <fieldset className="relative">
@@ -78,14 +78,14 @@ const Navbar = () => {
           )}
 
           <aside className="flex items-center space-x-4">
-            <Link to="/account" aria-label="User account">
+            <Link to="/dashboard/profile" aria-label="User account">
               <User size={20} />
             </Link>
             <Link to="/cart" aria-label="Shopping cart" className="relative">
               <ShoppingCart size={20} />
               <Badge
                 variant="destructive"
-                className="absolute -top-1 -right-1 min-w-5 h-5 flex items-center justify-center"
+                className="absolute -top-2 bottom-2 -right-2 w-4 h-4 flex items-center justify-center text-[10px]"
               >
                 3
               </Badge>
@@ -102,33 +102,35 @@ const Navbar = () => {
         </section>
 
         <search className="md:hidden pb-2">
-         {!pathname.includes(`auth`) && <form onSubmit={onSubmit} className="w-full">
-            <fieldset className="relative">
-              <Controller
-                name="searchKey"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <Input
-                      {...field}
-                      type="search"
-                      placeholder="Search products..."
-                      className="w-full pr-10"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  );
-                }}
-              />
-              <Link
-                to="#"
-                type="submit"
-                className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
-              >
-                <Search size={18} />
-              </Link>
-            </fieldset>
-          </form>}
+          {!['auth', 'dashboard'].some((path) => !pathname.includes(path)) && (
+            <form onSubmit={onSubmit} className="w-full">
+              <fieldset className="relative">
+                <Controller
+                  name="searchKey"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <Input
+                        {...field}
+                        type="search"
+                        placeholder="Search products..."
+                        className="w-full pr-10"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                    );
+                  }}
+                />
+                <Link
+                  to="#"
+                  type="submit"
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
+                >
+                  <Search size={18} />
+                </Link>
+              </fieldset>
+            </form>
+          )}
         </search>
       </section>
 
@@ -146,7 +148,7 @@ const Navbar = () => {
                 className="flex items-center text-base font-medium"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate('/account');
+                  navigate('/dashboard/profile');
                   setIsMenuOpen(false);
                 }}
               >
@@ -164,9 +166,9 @@ const Navbar = () => {
                   setIsMenuOpen(false);
                 }}
               >
-                <ShoppingCart size={20} className="mr-3" />
+                <ShoppingCart size={20} className="mr-3 text-foreground" />
                 Cart
-                <Badge variant="destructive" className="ml-2">
+                <Badge variant="destructive" className="ml-2 -mt-1">
                   3
                 </Badge>
               </Link>
