@@ -47,13 +47,14 @@ const ManageProducts = () => {
 
   return (
     <DashboardLayout>
-      <main className="w-full flex flex-col gap-4">
+      <main className="w-full flex flex-col gap-4 px-2 sm:px-4 md:px-8">
         <nav className="w-full flex flex-col gap-4">
           <CustomBreadcrumb navigationLinks={navigationLinks} />
-          <ul className="w-full flex items-center gap-3 justify-between">
-            <Heading type="h1">Manage Products</Heading>
+          <ul className="w-full flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 sm:justify-between">
+            <Heading type="h1" className="text-center sm:text-left">Manage Products</Heading>
             <Button
               to={`#`}
+              className="w-full sm:w-auto"
               onClick={(e) => {
                 e.preventDefault();
                 dispatch(setCreateProductModal(true));
@@ -64,42 +65,44 @@ const ManageProducts = () => {
           </ul>
         </nav>
         <section className="w-full flex flex-col gap-4">
-          <Table
-            data={productsList}
-            columns={productColumns}
-            isLoading={productsIsFetching}
-            noDataMessage={
-              <ul className="w-full flex flex-col items-center gap-4">
-                <Heading type="h2">No products found</Heading>
-                <p>You can add a new product by clicking the button below.</p>
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    fetchAllProducts();
-                  }}
-                  className="self-center flex items-center gap-2"
-                >
-                  <span>Try Again</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+          <div className="w-full overflow-x-auto rounded-md">
+            <Table
+              data={productsList}
+              columns={productColumns}
+              isLoading={productsIsFetching}
+              noDataMessage={
+                <ul className="w-full flex flex-col items-center gap-4 p-2 sm:p-4">
+                  <Heading type="h2" className="text-center">No products found</Heading>
+                  <p className="text-center">You can add a new product by clicking the button below.</p>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      fetchAllProducts();
+                    }}
+                    className="self-center flex items-center gap-2"
                   >
-                    <path d="M21 2v6h-6" />
-                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-                    <path d="M3 22v-6h6" />
-                    <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-                  </svg>
-                </Button>
-              </ul>
-            }
-          />
+                    <span>Try Again</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M21 2v6h-6" />
+                      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                      <path d="M3 22v-6h6" />
+                      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                    </svg>
+                  </Button>
+                </ul>
+              }
+            />
+          </div>
         </section>
       </main>
       <DeleteProduct />

@@ -55,13 +55,13 @@ const UserProfile = () => {
 
   return (
     <DashboardLayout>
-      <main className="w-full flex flex-col gap-4">
+      <main className="w-full flex flex-col gap-4 px-2 sm:px-4 md:px-0">
         <nav className="w-full flex flex-col gap-4">
           <CustomBreadcrumb navigationLinks={navigationLinks} />
         </nav>
         {getUserByIdIsFetching ? (
           <section className="w-full flex flex-col gap-4">
-            <menu className="w-full grid grid-cols-2 gap-4">
+            <menu className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Array.from({ length: 10 }).map((_, index) => (
                 <figure key={index} className="w-full flex items-center gap-2">
                   <SkeletonLoader className="w-full h-full" />
@@ -70,9 +70,9 @@ const UserProfile = () => {
             </menu>
           </section>
         ) : (
-          <article className="w-full bg-white rounded-xl mx-auto">
+          <article className="w-full bg-white rounded-xl mx-auto p-4 sm:p-6 md:p-8 shadow">
             <section className="mb-6">
-              <Heading className="text-xl font-semibold text-gray-700 mb-2">
+              <Heading className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">
                 Personal Information
               </Heading>
               <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
@@ -89,7 +89,7 @@ const UserProfile = () => {
               </dl>
             </section>
             <section className="mb-6">
-              <Heading className="text-xl font-semibold text-gray-700 mb-2">
+              <Heading className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">
                 Address
               </Heading>
               <address className="not-italic text-gray-800">
@@ -98,22 +98,23 @@ const UserProfile = () => {
               </address>
             </section>
             <section>
-              <ul className="flex items-center gap-2 justify-between">
-                <Heading className="text-xl font-semibold text-gray-700 mb-2">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <Heading className="text-lg sm:text-xl font-semibold text-gray-700">
                   Geolocation
                 </Heading>
                 <a
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 bg-primary hover:bg-primary text-white text-sm font-medium px-2 py-1 rounded transition-colors"
+                  className="inline-flex items-center gap-1 bg-primary hover:bg-primary text-white text-xs sm:text-sm font-medium px-2 py-1 rounded transition-colors"
                   aria-label="View location on Google Maps"
                 >
                   <FontAwesomeIcon icon={faMapPin} />
-                  View on Google Maps
+                  <span className="hidden xs:inline">View on Google Maps</span>
+                  <span className="inline xs:hidden">Map</span>
                 </a>
-              </ul>
-              <dl className="grid grid-cols-2 gap-x-8 gap-y-2 mb-4">
+              </div>
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mb-4">
                 <dt className="font-medium text-gray-500">Latitude</dt>
                 <dd className="text-gray-800">
                   {user?.address?.geolocation?.lat}
@@ -126,12 +127,13 @@ const UserProfile = () => {
             </section>
           </article>
         )}
-        <menu className="w-full flex items-center gap-3 justify-between">
+        <menu className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:justify-between mt-2">
           <Button
             onClick={(e) => {
               e.preventDefault();
               navigate(-1);
             }}
+            className="w-full sm:w-auto"
           >
             Back
           </Button>
