@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
   addToProductsList,
@@ -11,13 +11,14 @@ import {
   useLazyFetchAllProductsQuery,
   useLazyGetProductByIdQuery,
 } from '@/adapters/api/products/productApiQuerySlice';
-import { toApiProduct } from '@/adapters/mappers/productMapper';
+import { ApiProduct, toApiProduct } from '@/adapters/mappers/productMapper';
 import {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
 } from '@/adapters/api/products/productApiSlice';
 import { toast } from 'sonner';
+import { Product } from '@/core/domain/entities/product.entity';
 
 // FETCH ALL PRODUCTS
 export const useFetchAllProducts = () => {
@@ -207,5 +208,56 @@ export const useUpdateProduct = () => {
     updateProductIsSuccess,
     updateProductIsError,
     resetUpdateProduct,
+  };
+};
+
+/**
+ * SEARCH PRODUCTS
+ */
+export const useSearchProducts = () => {
+  const [productsList, setProductsList] = useState<(Product & ApiProduct)[]>(
+    []
+  );
+
+  // FETCH ALL PRODUCTS
+  const [fetchAllProducts, { isFetching: productsIsFetching }] =
+    useLazyFetchAllProductsQuery();
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
+
+  const searchProducts = useCallback(
+    (query?: string) => {
+      if (query) {
+        if (productsList?.length > 0) {
+          const filteredProducts = productsList.filter((product) =>
+            product.title.toLowerCase().includes(query.toLowerCase())
+          );
+          setProductsList(filteredProducts);
+        } else {
+          fetchAllProducts()
+            .unwrap()
+            .then((products) => {
+              setProductsList(
+                products
+                  .map(toApiProduct)
+                  ?.filter((product) =>
+                    product.title.toLowerCase().includes(query.toLowerCase())
+                  )
+              );
+            });
+        }
+      } else {
+        setProductsList([]);
+      }
+    },
+    [fetchAllProducts, productsList]
+  );
+
+  return {
+    productsList,
+    searchProducts,
+    productsIsFetching,
   };
 };

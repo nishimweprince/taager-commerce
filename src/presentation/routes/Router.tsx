@@ -11,6 +11,7 @@ import ManageCarts from '../ui/pages/dashboard/ManageCarts';
 import CartDetails from '../ui/pages/cart/CartDetails';
 import ManageUsers from '../ui/pages/dashboard/ManageUsers';
 import UserDetails from '../ui/pages/user/UserDetails';
+import Dashboard from '../ui/pages/dashboard/Dashboard';
 
 const Router = () => {
   return (
@@ -38,6 +39,7 @@ const Router = () => {
        */}
       <Route element={<AuthenticatedRoutes />}>
         <Route path="/dashboard">
+          <Route path="" element={<Dashboard />} />
           <Route path="profile" element={<UserDetails />} />
           <Route path="products" element={<ManageProducts />} />
           <Route path="carts">

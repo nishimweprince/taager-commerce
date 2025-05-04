@@ -1,10 +1,11 @@
 import { Input as UIInput } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import {
+import React, {
   ChangeEvent,
   FocusEvent,
   InputHTMLAttributes,
   KeyboardEvent,
+  ForwardedRef,
 } from 'react';
 import { InputErrorMessage } from './ErrorLabels';
 import { FieldErrorsImpl, FieldValues } from 'react-hook-form';
@@ -34,56 +35,62 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   accept?: string;
 }
 
-const Input = ({
-  className,
-  value,
-  onChange,
-  onBlur,
-  onFocus,
-  onKeyDown,
-  onKeyUp,
-  label,
-  errorMessage,
-  required,
-  isLoading,
-  accept = 'image/*',
-  ...props
-}: InputProps) => {
-  return (
-    <label className="flex flex-col gap-[6px] item-start w-full">
-      <p
-        className={`text-sm flex items-center gap-1 ${!label && 'hidden'}`}
-      >
-        {label}{' '}
-        {required && (
-          <CustomTooltip
-            label={required ? `${label} is required` : ''}
-            labelClassName="text-[12px] bg-red-600"
-          >
-            <span className="text-red-600 cursor-pointer">*</span>
-          </CustomTooltip>
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      value,
+      onChange,
+      onBlur,
+      onFocus,
+      onKeyDown,
+      onKeyUp,
+      label,
+      errorMessage,
+      required,
+      isLoading,
+      accept = 'image/*',
+      ...props
+    },
+    ref: ForwardedRef<HTMLInputElement>
+  ) => {
+    return (
+      <label className="flex flex-col gap-[6px] item-start w-full">
+        <p
+          className={`text-sm flex items-center gap-1 ${!label && 'hidden'}`}
+        >
+          {label}{' '}
+          {required && (
+            <CustomTooltip
+              label={required ? `${label} is required` : ''}
+              labelClassName="text-[12px] bg-red-600"
+            >
+              <span className="text-red-600 cursor-pointer">*</span>
+            </CustomTooltip>
+          )}
+        </p>
+        {isLoading ? (
+          <SkeletonLoader className="w-full h-[40px]" />
+        ) : (
+          <>
+            <UIInput
+              {...props}
+              ref={ref}
+              className={cn(className)}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
+              accept={accept}
+            />
+            {errorMessage && <InputErrorMessage message={errorMessage} />}
+          </>
         )}
-      </p>
-      {isLoading ? (
-        <SkeletonLoader className="w-full h-[40px]" />
-      ) : (
-        <>
-          <UIInput
-            {...props}
-            className={cn(className)}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            onKeyUp={onKeyUp}
-            accept={accept}
-          />
-          {errorMessage && <InputErrorMessage message={errorMessage} />}
-        </>
-      )}
-    </label>
-  );
-};
+      </label>
+    );
+  }
+);
 
 export default Input;

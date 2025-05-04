@@ -1,20 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ShoppingCart, User, Search, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import Input from '../inputs/Input';
 import { useGetCartById } from '@/core/application/cart/cart.hooks';
 import { useAppSelector } from '@/core/application/state/hooks';
 import { localStorageAdapter } from '@/infrastructure/storage/localStorageAdapter';
+import SearchProducts from '../product/SearchProducts';
 
 const Navbar = () => {
   /**
    * STATE VARIABLES
    */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const { cart } = useAppSelector((state) => state.cart);
 
   /**
@@ -23,11 +21,6 @@ const Navbar = () => {
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
-
-  /**
-   * REACT HOOK FORM
-   */
-  const { control, handleSubmit } = useForm();
 
   /**
    * NAVIGATION
@@ -45,11 +38,6 @@ const Navbar = () => {
     }
   }, [getCartById, cart]);
 
-  // HANDLE FORM SUBMISSION
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
-
   return (
     <header className="sticky h-[9vh] top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <section className="container mx-auto px-4">
@@ -61,34 +49,7 @@ const Navbar = () => {
           </figure>
 
           {!['auth', 'dashboard'].some((path) => pathname.includes(path)) && (
-            <search className="hidden md:flex relative w-4/7 mx-4">
-              <form onSubmit={onSubmit} className="w-full">
-                <fieldset className="relative">
-                  <Controller
-                    name="searchKey"
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Input
-                          {...field}
-                          placeholder="Search products..."
-                          className="w-full pr-10"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                      );
-                    }}
-                  />
-                  <Link
-                    to="#"
-                    type="submit"
-                    className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
-                  >
-                    <Search size={18} />
-                  </Link>
-                </fieldset>
-              </form>
-            </search>
+            <SearchProducts />
           )}
 
           <aside className="flex items-center space-x-4">
@@ -123,33 +84,7 @@ const Navbar = () => {
 
         <search className="md:hidden pb-2">
           {!['auth', 'dashboard'].some((path) => !pathname.includes(path)) && (
-            <form onSubmit={onSubmit} className="w-full">
-              <fieldset className="relative">
-                <Controller
-                  name="searchKey"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <Input
-                        {...field}
-                        type="search"
-                        placeholder="Search products..."
-                        className="w-full pr-10"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                    );
-                  }}
-                />
-                <Link
-                  to="#"
-                  type="submit"
-                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
-                >
-                  <Search size={18} />
-                </Link>
-              </fieldset>
-            </form>
+            <SearchProducts />
           )}
         </search>
       </section>
