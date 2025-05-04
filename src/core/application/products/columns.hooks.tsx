@@ -26,6 +26,14 @@ export const useProductColumns = () => {
       {
         header: 'Title',
         accessorKey: 'title',
+        cell: ({ row }) => {
+          return (
+            <span className="flex items-center gap-3">
+            <img src={row.original.image} alt={row.original.title} className="w-10 h-10 object-contain rounded border" />
+            <span className="font-medium text-gray-800">{row.original.title}</span>
+          </span>
+          );
+        },
       },
       {
         header: 'Description',

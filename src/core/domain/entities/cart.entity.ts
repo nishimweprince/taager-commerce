@@ -1,7 +1,10 @@
 import { BaseEntity } from './base.entity';
-import { Product } from './product.entity';
 
 export interface Cart extends BaseEntity {
   userId: number;
-  products: Product[];
+  products: {
+    productId: number;
+    quantity: number;
+  }[];
+  date: string;
 }

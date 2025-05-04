@@ -11,7 +11,7 @@ import {
   useLazyFetchAllProductsQuery,
   useLazyGetProductByIdQuery,
 } from '@/adapters/api/products/productApiQuerySlice';
-import { toApiProduct } from '@/adapters/api/mappers/productMapper';
+import { toApiProduct } from '@/adapters/mappers/productMapper';
 import {
   useCreateProductMutation,
   useDeleteProductMutation,

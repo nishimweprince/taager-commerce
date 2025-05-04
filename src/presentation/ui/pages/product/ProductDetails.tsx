@@ -12,6 +12,7 @@ import { QuantitySelector } from '../../components/product/ProductQuantity';
 import { useAppSelector } from '@/core/application/state/hooks';
 import { useGetProductById } from '@/core/application/products/product.hooks';
 import { capitalizeString } from '@/presentation/utils/string.helper';
+import { useAddProductToCart } from '@/core/application/cart/cart.hooks';
 
 const ProductDetails = () => {
   const { product } = useAppSelector((state) => state.product);
@@ -20,6 +21,11 @@ const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { productIsFetching } = useGetProductById(id ? Number(id) : undefined);
+
+  /**
+   * ADD PRODUCT TO CART
+   */
+  const { addProductToCart, cartIsFetching, updateCartIsLoading } = useAddProductToCart();
 
   // NAVIGATION LINKS
   const navigationLinks = [
@@ -151,12 +157,23 @@ const ProductDetails = () => {
             <QuantitySelector
               quantity={quantity}
               setQuantity={setQuantity}
-              maxQuantity={quantity}
             />
 
             {/* ACTION BUTTONS */}
             <section className="flex flex-col sm:flex-row gap-4">
-              <Button className="flex-1 flex items-center justify-center gap-2">
+              <Button
+                className="flex-1 flex items-center justify-center gap-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (product) {
+                    addProductToCart({
+                      productId: product.id,
+                      quantity,
+                    });
+                  }
+                }}
+                isLoading={updateCartIsLoading || cartIsFetching}
+              >
                 <ShoppingCart size={18} />
                 Add to Cart
               </Button>

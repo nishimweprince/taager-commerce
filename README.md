@@ -175,7 +175,7 @@ The application uses the Fake Store API (https://fakestoreapi.com) for product d
 
 1. API endpoints defined in `src/adapters/api/endpoints.ts`
 2. API client implementations in `src/adapters/api/apiQuerySlice.ts`
-3. Data transformations in `src/adapters/api/mappers/`
+3. Data transformations in `src/adapters/mappers/`
 
 ## Authentication
 

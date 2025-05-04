@@ -2,15 +2,17 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Cart } from '@/core/domain/entities/cart.entity';
 
 interface CartState {
-  itemsList: Cart[];
-  item?: Cart;
-  selectedItem?: Cart;
+  cartsList: Cart[];
+  cart?: Cart;
+  selectedCart?: Cart;
+  deleteCartModal: boolean;
 }
 
 const initialState: CartState = {
-  itemsList: [],
-  item: undefined,
-  selectedItem: undefined,
+  cartsList: [],
+  cart: undefined,
+  selectedCart: undefined,
+  deleteCartModal: false,
 };
 
 const cartSlice = createSlice({
@@ -18,21 +20,45 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Cart>) => {
-      state.itemsList.unshift(action.payload);
+      state.cartsList.unshift(action.payload);
     },
 
-    removeFromCart: (state, action: PayloadAction<number>) => {
-      state.itemsList = state.itemsList.filter(
-        (item) => item.id !== action.payload
+    removeFromCartsList: (state, action: PayloadAction<number>) => {
+      state.cartsList = state.cartsList.filter(
+        (cart) => cart.id !== action.payload
       );
     },
 
     clearCart: (state) => {
-      state.itemsList = [];
+      state.cartsList = [];
+    },
+
+    setCartsList: (state, action: PayloadAction<Cart[]>) => {
+      state.cartsList = action.payload;
+    },
+
+    setDeleteCartModal: (state, action: PayloadAction<boolean>) => {
+      state.deleteCartModal = action.payload;
+    },
+
+    setSelectedCart: (state, action: PayloadAction<Cart | undefined>) => {
+      state.selectedCart = action.payload;
+    },
+
+    setCart: (state, action: PayloadAction<Cart | undefined>) => {
+      state.cart = action.payload;
     },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCartsList,
+  clearCart,
+  setCartsList,
+  setDeleteCartModal,
+  setSelectedCart,
+  setCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

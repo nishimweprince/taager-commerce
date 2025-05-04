@@ -1,10 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ShoppingCart, User, Search, Menu, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import Input from '../inputs/Input';
+import { useGetCartById } from '@/core/application/cart/cart.hooks';
+import { useAppSelector } from '@/core/application/state/hooks';
 
 const Navbar = () => {
   /**
@@ -12,6 +14,7 @@ const Navbar = () => {
    */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { cart } = useAppSelector((state) => state.cart);
 
   /**
    * HANDLERS
@@ -30,6 +33,16 @@ const Navbar = () => {
    */
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  // GET CART COUNT
+  const { getCartById } = useGetCartById();
+
+  // FETCH CART COUNT
+  useEffect(() => {
+    if (!cart) {
+      getCartById(1);
+    }
+  }, [getCartById, cart]);
 
   // HANDLE FORM SUBMISSION
   const onSubmit = handleSubmit((data) => {
@@ -81,13 +94,17 @@ const Navbar = () => {
             <Link to="/dashboard/profile" aria-label="User account">
               <User size={20} />
             </Link>
-            <Link to="/cart" aria-label="Shopping cart" className="relative">
+            <Link
+              to={`/cart?fromUrl=${pathname}`}
+              aria-label="Shopping cart"
+              className="relative"
+            >
               <ShoppingCart size={20} />
               <Badge
                 variant="destructive"
                 className="absolute -top-2 bottom-2 -right-2 w-4 h-4 flex items-center justify-center text-[10px]"
               >
-                3
+                {cart?.products?.length}
               </Badge>
             </Link>
             <Link
@@ -158,18 +175,18 @@ const Navbar = () => {
             </li>
             <li className="flex justify-between py-3 border-b border-border">
               <Link
-                to="/cart"
+                to={`/cart?fromUrl=${pathname}`}
                 className="flex items-center text-base font-medium"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate('/cart');
+                  navigate(`/cart?fromUrl=${pathname}`);
                   setIsMenuOpen(false);
                 }}
               >
                 <ShoppingCart size={20} className="mr-3 text-foreground" />
                 Cart
                 <Badge variant="destructive" className="ml-2 -mt-1">
-                  3
+                  {cart?.products?.length}
                 </Badge>
               </Link>
             </li>

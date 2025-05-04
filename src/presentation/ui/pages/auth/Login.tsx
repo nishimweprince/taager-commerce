@@ -12,7 +12,7 @@ import { Heading } from '../../components/inputs/TextInputs';
 import { Controller, useForm } from 'react-hook-form';
 import { InputErrorMessage } from '../../components/inputs/ErrorLabels';
 import Button from '../../components/inputs/Button';
-import { useLogin } from '@/core/application/hooks/auth.hooks';
+import { useLogin } from '@/core/application/auth/auth.hooks';
 import { Link } from 'react-router-dom';
 
 const Login = () => {

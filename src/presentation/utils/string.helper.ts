@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * Capitalize string
  * @param string - string to capitalize
@@ -42,4 +44,16 @@ export const formatCurrency = (
     style: 'currency',
     currency,
   }).format(Number(amount));
+};
+
+// FORMAT DATE
+export const formatDate = (
+  date: string | Date | undefined,
+  format: string = 'YYYY-MM-DD'
+): string => {
+  const inDate = new Date(date || '');
+  if (isNaN(inDate.getTime())) return date as string;
+
+  if (!date) return moment().format(format);
+  return moment(date).format(format);
 };

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_ENDPOINTS, BASE_URL } from '../endpoints';
-import { ApiProduct } from '../mappers/productMapper';
+import { ApiProduct } from '@/adapters/mappers/productMapper';
 
 export const productApiQuerySlice = createApi({
   reducerPath: 'productApiQuery',

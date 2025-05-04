@@ -8,6 +8,8 @@ import AuthenticatedRoutes from '../outlets/AuthenticatedRoutes';
 import Login from '../ui/pages/auth/Login';
 import Signup from '../ui/pages/auth/Signup';
 import ManageProducts from '../ui/pages/dashboard/ManageProducts';
+import ManageCarts from '../ui/pages/dashboard/ManageCarts';
+import CartDetails from '../ui/pages/cart/CartDetails';
 
 const Router = () => {
   return (
@@ -20,6 +22,13 @@ const Router = () => {
       <Route path="/products">
         <Route path="" element={<ProductsList />} />
         <Route path=":id" element={<ProductDetails />} />
+      </Route>
+
+      {/**
+       * CART ROUTES
+       */}
+      <Route path="/cart">
+        <Route path="" element={<CartDetails />} />
       </Route>
 
       {/**
@@ -37,6 +46,10 @@ const Router = () => {
         <Route path="/dashboard">
           <Route path="profile" element={<UserProfile />} />
           <Route path="products" element={<ManageProducts />} />
+          <Route path="carts">
+            <Route path="" element={<ManageCarts />} />
+            <Route path=":id" element={<CartDetails />} />
+          </Route>
         </Route>
       </Route>
 

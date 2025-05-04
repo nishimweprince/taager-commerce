@@ -1,6 +1,6 @@
 import { Product } from '../../core/domain/entities/product.entity';
 import { IProductRepository } from '../../core/domain/repositories/IProductRepository';
-import { toProduct } from '../api/mappers/productMapper';
+import { toProduct } from '../mappers/productMapper';
 import { API_ENDPOINTS, BASE_URL } from '../api/endpoints';
 
 export class ApiProductRepository implements IProductRepository {

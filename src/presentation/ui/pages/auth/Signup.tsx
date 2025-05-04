@@ -15,7 +15,7 @@ import { InputErrorMessage } from '../../components/inputs/ErrorLabels';
 import Button from '../../components/inputs/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import validateInputs from '@/presentation/utils/validations.helper';
-import { useCreateUser } from '@/core/application/hooks/user.hooks';
+import { useCreateUser } from '@/core/application/users/user.hooks';
 
 const Signup = () => {
   /**

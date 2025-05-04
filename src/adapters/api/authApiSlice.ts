@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_ENDPOINTS, BASE_URL } from './endpoints';
-import { ApiAuth } from './mappers/authMapper';
+import { ApiAuth } from '@/adapters/mappers/authMapper';
 
 export const authApiQuerySlice = createApi({
   reducerPath: 'authApiQuery',

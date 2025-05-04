@@ -16,7 +16,7 @@ export interface NavigationItem {
 export const DASHBOARD_ROUTES = {
   DASHBOARD: '/dashboard',
   PRODUCTS: '/dashboard/products',
-  CART: '/dashboard/cart',
+  CART: '/dashboard/carts',
   ORDERS: '/dashboard/orders',
   PROFILE: '/dashboard/profile',
 };

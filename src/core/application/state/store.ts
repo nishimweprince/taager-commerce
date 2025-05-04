@@ -4,17 +4,23 @@ import productSlice from './slices/productSlice';
 import cartSlice from './slices/cartSlice';
 import { productApiQuerySlice } from '../../../adapters/api/products/productApiQuerySlice';
 import { authApiQuerySlice } from '../../../adapters/api/authApiSlice';
-import { userApiQuerySlice } from '../../../adapters/api/userApiSlice';
+import { userApiSlice } from '../../../adapters/api/users/userApiSlice';
 import userSlice from './slices/userSlice';
 import sidebarSlice from './slices/sidebarSlice';
 import { productApiSlice } from '../../../adapters/api/products/productApiSlice';
+import { cartApiQuerySlice } from '../../../adapters/api/cart/cartApiQuerySlice';
+import { userApiQuerySlice } from '../../../adapters/api/users/userApiQuerySlice';
+import { cartApiSlice } from '../../../adapters/api/cart/cartApiSlice';
 
 export const store = configureStore({
   reducer: {
     [productApiQuerySlice.reducerPath]: productApiQuerySlice.reducer,
     [authApiQuerySlice.reducerPath]: authApiQuerySlice.reducer,
-    [userApiQuerySlice.reducerPath]: userApiQuerySlice.reducer,
+    [userApiSlice.reducerPath]: userApiSlice.reducer,
     [productApiSlice.reducerPath]: productApiSlice.reducer,
+    [cartApiQuerySlice.reducerPath]: cartApiQuerySlice.reducer,
+    [userApiQuerySlice.reducerPath]: userApiQuerySlice.reducer,
+    [cartApiSlice.reducerPath]: cartApiSlice.reducer,
     product: productSlice,
     cart: cartSlice,
     user: userSlice,
@@ -24,8 +30,11 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       productApiQuerySlice.middleware,
       authApiQuerySlice.middleware,
+      userApiSlice.middleware,
+      productApiSlice.middleware,
+      cartApiQuerySlice.middleware,
       userApiQuerySlice.middleware,
-      productApiSlice.middleware
+      cartApiSlice.middleware
     ),
 });
 
