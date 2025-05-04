@@ -7,6 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import Input from '../inputs/Input';
 import { useGetCartById } from '@/core/application/cart/cart.hooks';
 import { useAppSelector } from '@/core/application/state/hooks';
+import { localStorageAdapter } from '@/infrastructure/storage/localStorageAdapter';
 
 const Navbar = () => {
   /**
@@ -39,7 +40,7 @@ const Navbar = () => {
 
   // FETCH CART COUNT
   useEffect(() => {
-    if (!cart) {
+    if (!cart && localStorageAdapter.getItem('auth_token')) {
       getCartById(1);
     }
   }, [getCartById, cart]);
@@ -100,12 +101,14 @@ const Navbar = () => {
               className="relative"
             >
               <ShoppingCart size={20} />
-              <Badge
-                variant="destructive"
-                className="absolute -top-2 bottom-2 -right-2 w-4 h-4 flex items-center justify-center text-[10px]"
-              >
-                {cart?.products?.length}
-              </Badge>
+              {cart && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-2 bottom-2 -right-2 w-4 h-4 flex items-center justify-center text-[10px]"
+                >
+                  {cart?.products?.length}
+                </Badge>
+              )}
             </Link>
             <Link
               to="#"
@@ -185,9 +188,11 @@ const Navbar = () => {
               >
                 <ShoppingCart size={20} className="mr-3 text-foreground" />
                 Cart
-                <Badge variant="destructive" className="ml-2 -mt-1">
-                  {cart?.products?.length}
-                </Badge>
+                {cart && (
+                  <Badge variant="destructive" className="ml-2 -mt-1">
+                    {cart?.products?.length}
+                  </Badge>
+                )}
               </Link>
             </li>
           </menu>

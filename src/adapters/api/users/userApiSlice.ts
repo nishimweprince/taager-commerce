@@ -8,15 +8,25 @@ export const userApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ['User'],
   endpoints: (builder) => ({
-    createUser: builder.mutation<User, ApiUser>({
-      query: (user: ApiUser) => ({
+
+    // CREATE USER
+    createUser: builder.mutation<ApiUser, User>({
+      query: (user: User) => ({
         url: API_ENDPOINTS.USERS,
         method: 'POST',
         body: user,
       }),
       invalidatesTags: ['User'],
     }),
+
+    // DELETE USER
+    deleteUser: builder.mutation<User, number>({
+      query: (id: number) => ({
+        url: `${API_ENDPOINTS.USERS}/${id}`,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
-export const { useCreateUserMutation } = userApiSlice;
+export const { useCreateUserMutation, useDeleteUserMutation } = userApiSlice;

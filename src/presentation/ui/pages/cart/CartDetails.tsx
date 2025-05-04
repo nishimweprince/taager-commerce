@@ -6,7 +6,7 @@ import { useCartProducts } from '@/core/application/cart/cart.hooks';
 import { useUpdateCart } from '@/core/application/cart/cart.hooks';
 import TableUserLabel from '@/presentation/ui/components/users/TableUserLabel';
 import Table from '@/presentation/ui/components/table/Table';
-import { useCartProductsColumns } from '@/core/application/cart/columns.hooks';
+import { useCartProductsColumns } from '@/core/application/cart/columns.carts';
 import CustomTooltip from '../../components/common/CustomTooltip';
 import { Product } from '@/core/domain/entities/product.entity';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

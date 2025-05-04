@@ -3,13 +3,14 @@ import Home from '../ui/pages/home/Home';
 import ProductsList from '../ui/pages/product/ProductsList';
 import NotFound from '../ui/pages/non-functional/NotFound';
 import ProductDetails from '../ui/pages/product/ProductDetails';
-import UserProfile from '../ui/pages/user/UserProfile';
 import AuthenticatedRoutes from '../outlets/AuthenticatedRoutes';
 import Login from '../ui/pages/auth/Login';
 import Signup from '../ui/pages/auth/Signup';
 import ManageProducts from '../ui/pages/dashboard/ManageProducts';
 import ManageCarts from '../ui/pages/dashboard/ManageCarts';
 import CartDetails from '../ui/pages/cart/CartDetails';
+import ManageUsers from '../ui/pages/dashboard/ManageUsers';
+import UserDetails from '../ui/pages/user/UserDetails';
 
 const Router = () => {
   return (
@@ -25,13 +26,6 @@ const Router = () => {
       </Route>
 
       {/**
-       * CART ROUTES
-       */}
-      <Route path="/cart">
-        <Route path="" element={<CartDetails />} />
-      </Route>
-
-      {/**
        * AUTH ROUTES
        */}
       <Route path="/auth">
@@ -44,12 +38,23 @@ const Router = () => {
        */}
       <Route element={<AuthenticatedRoutes />}>
         <Route path="/dashboard">
-          <Route path="profile" element={<UserProfile />} />
+          <Route path="profile" element={<UserDetails />} />
           <Route path="products" element={<ManageProducts />} />
           <Route path="carts">
             <Route path="" element={<ManageCarts />} />
             <Route path=":id" element={<CartDetails />} />
           </Route>
+          <Route path="users">
+            <Route path="" element={<ManageUsers />} />
+            <Route path=":id" element={<UserDetails />} />
+          </Route>
+        </Route>
+
+        {/**
+         * CART ROUTES
+         */}
+        <Route path="/cart">
+          <Route path="" element={<CartDetails />} />
         </Route>
       </Route>
 

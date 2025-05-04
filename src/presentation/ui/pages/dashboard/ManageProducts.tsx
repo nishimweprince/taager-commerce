@@ -3,7 +3,7 @@ import { Heading } from '../../components/inputs/TextInputs';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Table from '../../components/table/Table';
 import CustomBreadcrumb from '../../components/common/CustomBreadcrumb';
-import { useProductColumns } from '@/core/application/products/columns.hooks';
+import { useProductColumns } from '@/core/application/products/columns.products';
 import { useFetchAllProducts } from '@/core/application/products/product.hooks';
 import { useAppDispatch, useAppSelector } from '@/core/application/state/hooks';
 import DeleteProduct from '@/presentation/containers/products/DeleteProduct';

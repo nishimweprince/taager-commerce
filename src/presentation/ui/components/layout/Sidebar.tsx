@@ -11,8 +11,10 @@ import {
   faBars,
   faChevronDown,
   faChevronUp,
+  faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import { SIDEBAR_NAV_ITEMS } from '@/presentation/constants/sidebar.constants';
+import { setLogout } from '@/core/application/state/slices/authSlice';
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -195,6 +197,31 @@ const Sidebar = () => {
               </li>
             );
           })}
+          <li className="w-full flex flex-col items-start">
+            <Link
+              to={`#`}
+                  className={`flex w-full items-center gap-4 font-medium text-[13px] ease-in-out duration-200 rounded-lg 
+                            ${isOpen ? 'px-4 py-3' : 'p-3 justify-center'}
+                            hover:bg-primary/5 hover:text-primary`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(setLogout());
+                  }}
+                  title={'Logout'}
+                >
+                  <FontAwesomeIcon
+                    icon={faSignOut}
+                    className={`text-xl flex items-center text-gray-600`}
+                  />
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={isOpen ? controlText : { opacity: 0 }}
+                    className="font-medium whitespace-nowrap"
+                  >
+                    Logout
+                  </motion.span>
+                </Link>
+              </li>
         </ul>
       </nav>
     </motion.aside>

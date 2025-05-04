@@ -11,7 +11,6 @@ const Footer = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Subscribed with email:', email);
     setEmail('');
     // Add your newsletter subscription logic here
   };

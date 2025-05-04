@@ -11,6 +11,7 @@ import { productApiSlice } from '../../../adapters/api/products/productApiSlice'
 import { cartApiQuerySlice } from '../../../adapters/api/cart/cartApiQuerySlice';
 import { userApiQuerySlice } from '../../../adapters/api/users/userApiQuerySlice';
 import { cartApiSlice } from '../../../adapters/api/cart/cartApiSlice';
+import authSlice from './slices/authSlice';
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     cart: cartSlice,
     user: userSlice,
     sidebar: sidebarSlice,
+    auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

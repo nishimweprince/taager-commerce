@@ -1,5 +1,5 @@
 import { BaseEntity } from '@/core/domain/entities/base.entity';
-import { User } from '@/core/domain/entities/user.entity';
+import { User, UserAddress } from '@/core/domain/entities/user.entity';
 
 export interface ApiUser extends BaseEntity {
   username: string;
@@ -9,6 +9,8 @@ export interface ApiUser extends BaseEntity {
     firstname: string;
     lastname?: string;
   };
+  address?: UserAddress;
+  phone?: string;
 }
 
 export const toApiUser = (user: User): ApiUser => ({
@@ -17,7 +19,7 @@ export const toApiUser = (user: User): ApiUser => ({
   email: user.email,
   password: user.password,
   name: {
-    firstname: user.name,
+    firstname: user?.name || '',
   },
 });
 
@@ -27,4 +29,6 @@ export const toUser = (apiUser: ApiUser): User => ({
   email: apiUser.email,
   password: apiUser.password,
   name: `${apiUser.name.firstname} ${apiUser.name.lastname}`,
+  address: apiUser.address,
+  phone: apiUser.phone,
 });

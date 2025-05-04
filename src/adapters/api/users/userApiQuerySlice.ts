@@ -7,6 +7,16 @@ export const userApiQuerySlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ['User'],
   endpoints: (builder) => ({
+
+    // FETCH ALL USERS
+    fetchAllUsers: builder.query<ApiUser[], void>({
+      query: () => ({
+        url: API_ENDPOINTS.USERS,
+        method: 'GET',
+      }),
+    }),
+
+    // GET USER BY ID
     getUserById: builder.query<ApiUser, number>({
       query: (id: number) => ({
         url: `${API_ENDPOINTS.USERS}/${id}`,
@@ -17,4 +27,4 @@ export const userApiQuerySlice = createApi({
   }),
 });
 
-export const { useLazyGetUserByIdQuery } = userApiQuerySlice;
+export const { useLazyFetchAllUsersQuery, useLazyGetUserByIdQuery } = userApiQuerySlice;

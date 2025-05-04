@@ -4,7 +4,7 @@ import { faChartLine, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CustomBreadcrumb from '../../components/common/CustomBreadcrumb';
 import Table from '../../components/table/Table';
 import { useAppSelector } from '../../../../core/application/state/hooks';
-import { useCartColumns } from '@/core/application/cart/columns.hooks';
+import { useCartColumns } from '@/core/application/cart/columns.carts';
 import { useFetchAllCarts } from '@/core/application/cart/cart.hooks';
 import { useEffect } from 'react';
 import DeleteCart from '../../components/cart/DeleteCart';
