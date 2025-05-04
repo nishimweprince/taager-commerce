@@ -126,3 +126,6 @@ e-commerce/
 
 ## License
 [MIT](./LICENSE)
+
+## Further Documentation
+For in-depth guides, architecture details, and advanced usage, see the [Extensive Documentation powered by DeepWiki](https://deepwiki.com/nishimweprince/taager-commerce).
